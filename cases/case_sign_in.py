@@ -1,10 +1,10 @@
-from cases_helper import login
+from cases_helper import sign_in
 from utilities import get_driver
 import configparser
 import os
 
 
-def test_login():
+def test_sign_in():
     # init
     project_directory = os.getcwd()
     config = configparser.ConfigParser()
@@ -12,10 +12,6 @@ def test_login():
     setting = config['GeneralSetting']
 
     driver = get_driver(project_directory, setting)
-
-    try:
-        login(driver, setting['test_account'])
-        assert True
-    except Exception as e:
-        print(e)
-        assert False
+    test_account = {"account": setting['test_account'], "password": setting['password']}
+    login_account_name = sign_in(driver, test_account)
+    assert login_account_name == "expect_account_name"

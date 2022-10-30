@@ -4,16 +4,22 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
 
-def login(driver: webdriver, account):
+def sign_in(driver: webdriver, login_info: dict) -> str:
     WebDriverWait(driver, 30).until(
-        ec.presence_of_element_located((AppiumBy.ID, "com.ivuu:id/btn_sign_in_google")))
-    gmail_button = driver.find_element(AppiumBy.ID, "com.ivuu:id/btn_sign_in_google")
+        ec.presence_of_element_located((AppiumBy.ID, "com.ivuu:id/btn_sign_in_email")))
+    gmail_button = driver.find_element(AppiumBy.ID, "com.ivuu:id/btn_sign_in_email")
     gmail_button.click()
     WebDriverWait(driver, 30).until(
-        ec.presence_of_element_located((AppiumBy.CLASS_NAME, "android.widget.EditText")))
-    enter_text = driver.find_element(AppiumBy.CLASS_NAME, "android.widget.EditText")
-    enter_text.set_text(account)
-    sign_in_buttons = driver.find_elements(AppiumBy.CLASS_NAME, "android.widget.Button")
-    for button in sign_in_buttons:
-        if button.text == "Next":
-            button.click()
+        ec.presence_of_element_located((AppiumBy.ID, "com.ivuu:id/edt_content")))
+    email_account_text = driver.find_element(AppiumBy.ID, "com.ivuu:id/edt_content")
+    email_account_text.set_text(login_info["account"])
+    continue_button = driver.find_element(AppiumBy.ID, "com.ivuu:id/alfredButtonText")
+    continue_button.click()
+    WebDriverWait(driver, 30).until(
+        ec.presence_of_element_located((AppiumBy.ID, "com.ivuu:id/til_password")))
+    pw_text = driver.find_element(AppiumBy.ID, "com.ivuu:id/til_password")
+    pw_text.set_text(login_info["password"])
+    confirm_pw_text = driver.find_element(AppiumBy.ID, "com.ivuu:id/til_confirm_password")
+    confirm_pw_text.set_text(login_info["password"])
+    return "expect_account_name"
+    # Todo : after login success, find account info and return as string
