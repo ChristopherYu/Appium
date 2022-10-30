@@ -11,7 +11,12 @@ def test_sign_in():
     config.read(f'{project_directory}/configs/config.ini')
     setting = config['GeneralSetting']
 
+    # test data
+    test_account = {"account": setting['test_account'], "password": setting['test_password'],
+                    "username": setting['test_username']}
+
+    # get driver
     driver = get_driver(project_directory, setting)
-    test_account = {"account": setting['test_account'], "password": setting['password']}
-    login_account_name = sign_in(driver, test_account)
-    assert login_account_name == "expect_account_name"
+
+    verify_text = sign_in(driver, test_account)
+    assert verify_text == "Verify your account"
