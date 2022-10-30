@@ -1,0 +1,10 @@
+{
+  "platformName": "iOS",
+  "platformVersion": "10.0",
+  "deviceName": "emulator-5554",
+  "automationName": "UiAutomator2",
+  "autoGrantPermissions": true,
+  "appPackage": "com.ivuu",
+  "appActivity": ".BrandingActivityCompat",
+  "noReset": true
+}
