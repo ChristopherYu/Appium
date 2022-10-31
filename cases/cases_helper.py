@@ -1,3 +1,5 @@
+import time
+
 from appium import webdriver
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.ui import WebDriverWait
@@ -37,6 +39,8 @@ def sign_in(driver: webdriver, login_info: dict) -> str:
     user_name_text.set_text(login_info["username"])
     usr_continue_button = driver.find_element(AppiumBy.ID, "com.ivuu:id/btn_sign_in")
     usr_continue_button.click()
+    # wait loading page disappear
+    time.sleep(3 * 1000)
     # wait page redirect
     WebDriverWait(driver, 30).until(
         ec.presence_of_element_located((AppiumBy.ID, "com.ivuu:id/txt_title")))
